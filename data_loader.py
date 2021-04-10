@@ -21,7 +21,7 @@ def data_loader():
 			for category in categories:
 				cat_journal[category.lower()].add(name)
 
-			journal_info[name].extend(info)
+			journal_info[name.lower()].extend(info)
 
 		else:
 			name = data.iloc[i]['Title']
@@ -31,7 +31,7 @@ def data_loader():
 				cat_conference[category.lower()].add(name)
 
 			info = [data.iloc[i]['Rank'], data.iloc[i]['Cites / Doc. (2years)'], np.random.randint(1,12)]
-			conference_info[name].extend(info)
+			conference_info[name.lower()].extend(info)
 			
 
 	with open('cat_conference', 'wb') as file:
