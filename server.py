@@ -6,6 +6,8 @@ from flask import jsonify
 from bson import ObjectId
 from flask_pymongo import pymongo
 from pymongo import MongoClient
+from give_names import *
+from time import time
 
 # Connecting with MongoDB database
 client = pymongo.MongoClient("mongodb+srv://ai:ai@cluster0.51nej.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
@@ -31,6 +33,11 @@ def index():
 
 @app.route("/register/")
 def register():
-    return render_template("register.html") 
+    t1 = time()
+    journals, conferences = give_names()
+    print(time()-t1)
+    return render_template("register.html", journals=journals, conferences=conferences) 
+
+
 
 app.run(host='127.0.0.1', port=3000, debug=True)
