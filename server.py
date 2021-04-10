@@ -17,7 +17,7 @@ CORS(app)
 app.config["DEBUG"]= True
 
 @app.route("/")
-def index():
+def signin():
     '''
     Renders the login page.
     '''
@@ -25,6 +25,12 @@ def index():
     # print(user)
     return render_template("login.html") 
 
+@app.route("/find/")
+def index():
+    return render_template("index.html") 
 
+@app.route("/register/")
+def register():
+    return render_template("register.html") 
 
 app.run(host='0.0.0.0', port=3000, debug=True)
