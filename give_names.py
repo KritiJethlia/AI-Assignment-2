@@ -1,27 +1,32 @@
 import pickle
 
-def give_names(func):
-	if func == 'journal':
-		with open('cat_journal', 'rb') as file:
-			cat_func = pickle.load(file)
-		
-		with open('journal_info', 'rb') as file:
-			func_info = pickle.load(file)
+def give_names():
+	with open('cat_journal', 'rb') as file:
+		cat_journal = pickle.load(file)
+	
+	with open('journal_info', 'rb') as file:
+		journal_info = pickle.load(file)
 
-	else:
-		with open('cat_conference', 'rb') as file:
-			cat_func = pickle.load(file)
-		
-		with open('conference_info', 'rb') as file:
-			func_info = pickle.load(file)
+	with open('cat_conference', 'rb') as file:
+		cat_conference = pickle.load(file)
+	
+	with open('conference_info', 'rb') as file:
+		conference_info = pickle.load(file)
 
-	funcs = set()
-	for key in cat_func.keys():
-		funcs = funcs.union(cat_func[key])
+	journals = set()
+	for key in cat_journal.keys():
+		journals = journals.union(cat_journal[key])
+
+	conferences = set()
+	for key in cat_conference.keys():
+		conferences = conferences.union(cat_conference[key])
 
 
-	return list(cat_func.keys()), funcs
+
+
+
+	return list(set(cat_journal.keys()).union(set(cat_conference.keys()))), journals, conferences
 
 if __name__ == '__main__':
-	categories, journals = give_names('journal')
-	print(categories)
+	categories, journals, conferences = give_names()
+	print(conferences)
