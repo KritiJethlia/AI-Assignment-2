@@ -33,4 +33,4 @@ def index():
 def register():
     return render_template("register.html") 
 
-app.run(host='0.0.0.0', port=3000, debug=True)
+app.run(host='127.0.0.1', port=3000, debug=True)
