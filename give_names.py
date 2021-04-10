@@ -23,5 +23,5 @@ def give_names(func):
 	return list(cat_func.keys()), funcs
 
 if __name__ == '__main__':
-	categories, journals = give_names('jounal')
+	categories, journals = give_names('journal')
 	print(categories)
