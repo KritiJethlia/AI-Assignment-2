@@ -12,7 +12,7 @@ from time import time
 # Connecting with MongoDB database
 client = pymongo.MongoClient("mongodb+srv://ai:ai@cluster0.51nej.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 db = client.user
-# user_collection = pymongo.collection.Collection(db,'user_collection')
+user_collection = pymongo.collection.Collection(db,'user')
 
 app = Flask(__name__)
 CORS(app)
@@ -29,7 +29,8 @@ def signin():
 
 @app.route("/find/")
 def index():
-    return render_template("index.html") 
+    cat = give_cat()
+    return render_template("index.html", categories = cat) 
 
 @app.route("/register/")
 def register():
@@ -38,6 +39,11 @@ def register():
     print(time()-t1)
     return render_template("register.html", journals=journals, conferences=conferences) 
 
-
+@app.route("/newuser", methods=['POST'])
+def newreg():
+    req_data = request.get_json()
+    print(req_data)
+    print(db.user.insert_one(req_data))
+    return  {"msg":"done"}
 
 app.run(host='127.0.0.1', port=3000, debug=True)

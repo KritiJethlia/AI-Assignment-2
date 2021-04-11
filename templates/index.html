@@ -9,17 +9,51 @@
     body{
       background-color: #ffffff;
     }
+    .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn){
+        width:500px;
+    }
   </style>
 </head>
 <center>
 <body>
  
+<div class="mt-5" style="margin-left:100px; margin-right:100px;">
+  <div class="d-flex justify-content-between">
+    <div>
+      <label class ="mt-1" style="font-size: 19px;">Select Filters</label>
+    </div>
+    <div>
+      <label>Categories</label>
+      <select class="selectpicker ml-3" multiple data-live-search="true">
+        {% for j in categories %}
+              <option style="width: 300px;">{{j}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label>Deadline within</label>
+      <select class="selectpicker ml-3"  data-live-search="true" >
+        <option style="width: 240px;" selected>None</option>
+        {% for j in [1,2,3,4,5,6,7,8,9,10,11,12] %}
+              <option style="width: 240px;">{{j}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label>Type</label>
+      <select class="selectpicker ml-3"  data-live-search="true" >
+        {% for j in ["Journal","Conference"] %}
+              <option style="width: 240px;">{{j}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <button type="button" class="btn btn-primary mr-5" onclick="onlogin()" >Search</button>
+    </div>
 
-<select class="selectpicker" multiple data-live-search="true">
-  <option>Mustard</option>
-  <option>Ketchup</option>
-  <option>Relish</option>
-</select>
+  </div>
+</div>
+
 
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
