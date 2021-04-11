@@ -8,6 +8,7 @@ from flask_pymongo import pymongo
 from pymongo import MongoClient
 from give_names import *
 from time import time
+from main import *
 
 # Connecting with MongoDB database
 client = pymongo.MongoClient("mongodb+srv://ai:ai@cluster0.51nej.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
@@ -45,5 +46,20 @@ def newreg():
     print(req_data)
     print(db.user.insert_one(req_data))
     return  {"msg":"done"}
+
+@app.route("/calculate", methods=['POST'])
+def calcu():
+    req_data = request.get_json()
+    print(req_data)
+    username = req_data['username']
+    func_type = req_data["type"]
+    keywords = req_data["categories"]
+    deadline = int(req_data["time"])
+    ranked_func, ranked_info = give_ans(func_type, keywords, deadline, 5)
+    print(ranked_func)
+    print(ranked_info)
+
+    
+    return {"a":"a"}
 
 app.run(host='127.0.0.1', port=3000, debug=True)
