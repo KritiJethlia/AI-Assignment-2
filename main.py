@@ -54,11 +54,13 @@ def give_ans(func_type, keywords, deadline, top_k):
 
 	potential_func = give_functions(functions, cat_func, top_k)
 	ranked_func = give_rank(potential_func, func_info, deadline, top_k)
+	ranked_info = [func_info[i.lower()] for i in ranked_func]
 	
-	return ranked_func
+	return ranked_func, ranked_info
 
 
 
 if __name__ == '__main__':
-	ranked_func = give_ans('journal', ['Condensed Matter Physics (Q1)', 'Energy Engineering and Power Technology (Q1)'], 2, 5)
+	ranked_func, ranked_info = give_ans('journal', ['Condensed Matter Physics (Q1)', 'Energy Engineering and Power Technology (Q1)'], 2, 5)
 	print(ranked_func)
+	print(ranked_info)
