@@ -3,6 +3,7 @@ from collections import defaultdict
 from tqdm import tqdm
 import pickle
 import numpy as np
+import re
 
 def data_loader():
 	data = pd.read_csv("dataset.csv", delimiter = ';', usecols = ['Rank', 'Title', 'Type', 'Categories','Cites / Doc. (2years)'])
@@ -16,6 +17,11 @@ def data_loader():
 		if data.iloc[i]['Type'] == 'journal':
 			name = data.iloc[i]['Title']
 			categories = data.iloc[i]['Categories'].split(';')
+			for i, category in enumerate(categories):
+				category = re.sub(r'\s*\(Q\d\)\s*', '', category)
+				category = category.strip(' ')
+				categories[i] = category
+
 			info = [data.iloc[i]['Rank'], int(data.iloc[i]['Cites / Doc. (2years)'].split(',')[0]), np.random.randint(1,12)]
 			
 			for category in categories:
