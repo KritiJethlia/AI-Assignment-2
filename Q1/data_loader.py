@@ -18,9 +18,10 @@ def data_loader():
 			name = data.iloc[i]['Title']
 			categories = data.iloc[i]['Categories'].split(';')
 			for i, category in enumerate(categories):
-				category = re.sub(r'\s*\(Q\d\)\s*', '', category)
+				category = re.sub(r'\s*\(Q*q*\d\)\s*', '', category)
 				category = category.strip(' ')
 				categories[i] = category
+				# print(category)
 
 			info = [data.iloc[i]['Rank'], int(data.iloc[i]['Cites / Doc. (2years)'].split(',')[0]), np.random.randint(1,12)]
 			
@@ -32,6 +33,10 @@ def data_loader():
 		else:
 			name = data.iloc[i]['Title']
 			categories = data.iloc[i]['Categories'].split(';')
+			for i, category in enumerate(categories):
+				category = re.sub(r'\s*\(Q*q*\d\)\s*', '', category)
+				category = category.strip(' ')
+				categories[i] = category
 			
 			for category in categories:
 				cat_conference[category.lower()].add(name)
@@ -78,6 +83,10 @@ if __name__ == '__main__':
 
 
 	print(max_freq)
+	# keys = list(set(cat_journal.keys()).union(set(cat_conference.keys())))
+	# keys.sort()
+	# print(keys[5])
+	# # print(cat_journal[' analysis (q3)'])
 
 
 

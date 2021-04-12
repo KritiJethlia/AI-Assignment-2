@@ -31,3 +31,6 @@ def give_cat():
 if __name__ == '__main__':
 	journals, conferences = give_names()
 	print(conferences)
+	# categories = give_cat()
+	# categories.sort()
+	# print(categories[5])
