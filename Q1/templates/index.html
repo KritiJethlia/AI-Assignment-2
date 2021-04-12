@@ -85,18 +85,19 @@
       keywords.push(cat[i].value)
     }
     var time = document.getElementById("time").selectedOptions[0].value;
-    if(document.getElementById("tabheader"))
-    {
-      document.getElementById("tabheader").remove();
-    }
-    if(document.getElementById("tabbody"))
-    {
-      document.getElementById("tabbody").remove();
-    }
+    
     axios.post(' http://127.0.0.1:3000/calculate',{username : localStorage.getItem("username"),type: type, keywords:keywords, time: time})
     .then((res)=>
     {
       console.log(res)
+      if(document.getElementById("tabheader"))
+      {
+        document.getElementById("tabheader").remove();
+      }
+      if(document.getElementById("tabbody"))
+      {
+        document.getElementById("tabbody").remove();
+      }
       var doc_info = res.data["doc_info"]
       var doc_name = res.data["doc_name"]
       var doc_status = res.data["doc_status"]
