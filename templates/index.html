@@ -49,16 +49,19 @@
       <label>Type</label>
       <select class="selectpicker ml-3"  data-live-search="true" id="type">
         {% for j in ["journal","conference"] %}
-              <option style="width: 240px;">{{j}}</option>
+            <option style="width: 240px;">{{j}}</option>
         {% endfor %}
       </select>
     </div>
     <div>
       <button type="button" class="btn btn-primary mr-5" onclick="onsearch()" >Search</button>
     </div>
-
   </div>
 </div>
+  <div class=" mt-5" style="margin-left:100px; margin-right: 100px;">
+    <table class="table table-striped table-hover"  id="table" > 
+    </table>
+  </div>
 
 <script>
   function setUser()
@@ -75,16 +78,69 @@
   {
     var type = document.getElementById("type").selectedOptions[0].value; 
     var cat = document.getElementById("categories").selectedOptions;
-    var categories =[]
-    for(var i =0;i<cat.length;i++)
+    console.log(cat)
+    var keywords =[]
+    for(var i = 0;i<cat.length;i++)
     {
-      categories.push(cat[i].value)
+      keywords.push(cat[i].value)
     }
     var time = document.getElementById("time").selectedOptions[0].value;
-    axios.post(' http://127.0.0.1:3000/calculate',{username : localStorage.getItem("username"),type: type, categories: categories, time: time})
+    if(document.getElementById("tabheader"))
+    {
+      document.getElementById("tabheader").remove();
+    }
+    if(document.getElementById("tabbody"))
+    {
+      document.getElementById("tabbody").remove();
+    }
+    axios.post(' http://127.0.0.1:3000/calculate',{username : localStorage.getItem("username"),type: type, keywords:keywords, time: time})
     .then((res)=>
     {
-      console.log("posted")
+      console.log(res)
+      var doc_info = res.data["doc_info"]
+      var doc_name = res.data["doc_name"]
+      var doc_status = res.data["doc_status"]
+
+      var thead = document.createElement("thead");
+      thead.setAttribute("id","tabheader");
+      var tr = document.createElement("tr");
+      var cname = ["#", "Name", "Rank","Impact Factor", "Deadline within"]
+      for(var i =0;i<cname.length;i++)
+      {
+        var th = document.createElement("th")
+        th.setAttribute("scope","col")
+        th.innerText = cname[i];
+        tr.appendChild(th);
+      }
+      thead.appendChild(tr);
+
+
+      // thead.innerHTML = '<tr><th scope="col">#</th><th scope="col">Name</th><th scope="col">Rank</th><th scope="col">Impact Factor</th><th scope="col">Deadline within</th></tr>';
+      tbody = document.createElement("tbody");
+      tbody.setAttribute("id","tabbody");
+      for(var i=0;i<doc_name.length;i++)
+      {
+        tr = document.createElement("tr");
+        tr.innerHTML = '<th scope="row">' + (i+1) +'</th><td>'
+          + doc_name[i]+'</td><td>'+ doc_info[i][0]+'</td><td>'
+          + doc_info[i][1] + '</td>'+'<td>' + doc_info[i][2] + ' months</td>' ;
+        if(doc_status[i]==1)
+        {
+          tr.innerHTML = '<th scope="row">' + (i+1) +'</th><td>'
+          + doc_name[i]+'</td><td>'+ doc_info[i][0]+'</td><td>'
+          + doc_info[i][1] + '</td>'+ '<td>' + doc_info[i][2] + ' months<span class="badge bg-success mt-2 ms-3">Attended</span></td>';
+        }
+        else
+        {
+          tr.innerHTML = '<th scope="row">' + (i+1) +'</th><td>'
+          + doc_name[i]+'</td><td>'+ doc_info[i][0]+'</td><td>'
+          + doc_info[i][1] + '</td>'+'<td>' + doc_info[i][2] + ' months</td>' ;
+        }
+        tbody.appendChild(tr); 
+      }
+      document.getElementById("table").appendChild(thead);
+      document.getElementById("table").appendChild(tbody);
+
     });
   }
 </script>

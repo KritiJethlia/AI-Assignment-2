@@ -31,7 +31,11 @@ def signin():
 @app.route("/find/")
 def index():
     cat = give_cat()
-    return render_template("index.html", categories = cat) 
+    # print(len(cat))
+    cat.sort()
+    # print(cat[567])
+    # print(cat[2018])
+    return render_template("index.html", categories = cat)  
 
 @app.route("/register/")
 def register():
@@ -44,7 +48,7 @@ def register():
 def newreg():
     req_data = request.get_json()
     print(req_data)
-    print(db.user.insert_one(req_data))
+    db.user.insert_one(req_data)
     return  {"msg":"done"}
 
 @app.route("/calculate", methods=['POST'])
@@ -53,13 +57,32 @@ def calcu():
     print(req_data)
     username = req_data['username']
     func_type = req_data["type"]
-    keywords = req_data["categories"]
-    deadline = int(req_data["time"])
+    keywords = req_data["keywords"]
+    if(req_data["time"]=='None'):
+        deadline = None
+    else :
+        deadline = int(req_data["time"])
+        
     ranked_func, ranked_info = give_ans(func_type, keywords, deadline, 5)
-    print(ranked_func)
-    print(ranked_info)
-
+    # print(ranked_func)
+    # print(ranked_info)
+    user_publ = db.user.find_one({"username": username})[func_type]
+    res = [i for i, val in enumerate(ranked_func) if val in user_publ]
+    read = [0]*5
+    for ind in res:
+        read[ind] = 1
     
-    return {"a":"a"}
+    for info in ranked_info:
+        info[0]=int(info[0])
+        info[1]=int(info[1])
+        info[2]=int(info[2])
+
+    # print(read)
+    return {"doc_name" : ranked_func,"doc_info" : ranked_info, "doc_status" : read}
+ 
 
 app.run(host='127.0.0.1', port=3000, debug=True)
+
+#{'username': 'kriti', 'type': 'journal', 'keywords': ['accounting (q2)', 'analysis (q1)', 'genetics', 'accounting (q2)', 'analysis (q1)', 'genetics'], 'time': '9'}
+# ["Annales de l'Institut Henri Poincare. Annales: Analyse Non Lineaire/Nonlinear Analysis", 'Geometric and Functional Analysis', 'Archive for Rational Mechanics and Analysis', 'Analysis and PDE', 'Calculus of Variations and Partial Differential Equations']
+# [[496, 2, 6], [502, 1, 5], [526, 2, 4], [784, 1, 3], [809, 1, 3]]
