@@ -64,8 +64,8 @@ def calcu():
         deadline = int(req_data["time"])
         
     ranked_func, ranked_info = give_ans(func_type, keywords, deadline, 5)
-    # print(ranked_func)
-    # print(ranked_info)
+    print(ranked_func)
+    print(ranked_info)
     user_publ = db.user.find_one({"username": username})[func_type]
     res = [i for i, val in enumerate(ranked_func) if val in user_publ]
     read = [0]*5

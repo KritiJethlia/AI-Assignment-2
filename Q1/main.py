@@ -18,16 +18,19 @@ def give_rank(potential_func, func_info, deadline, top_k):
 def give_functions(functions, cat_func, top_k):
 	potential_func = []
 	
-	for j in range(len(functions)-1):
+	for j in range(len(functions)):
 		temp = set()
 		for i in range(len(functions)-j):
 			temp = temp.union(functions[i])
 
 		potential_func.extend(list(temp)[:])	
+		# print("potential func",potential_func)
+		# print("temp",temp)
 		
 		if len(potential_func)>=2*top_k:	
 			return potential_func
-
+	
+	# print(potential_func)
 	return potential_func
 
 
@@ -52,6 +55,7 @@ def give_ans(func_type, keywords, deadline, top_k):
 	for keyword in keywords:
 		functions.append(cat_func[keyword.lower()])
 
+	# print("functions",functions)
 	potential_func = give_functions(functions, cat_func, top_k)
 	ranked_func = give_rank(potential_func, func_info, deadline, top_k)
 	ranked_info = [func_info[i.lower()] for i in ranked_func]
@@ -61,6 +65,6 @@ def give_ans(func_type, keywords, deadline, top_k):
 
 
 if __name__ == '__main__':
-	ranked_func, ranked_info = give_ans('journal', ['Condensed Matter Physics (Q1)', 'Energy Engineering and Power Technology (Q1)'], 2, 5)
+	ranked_func, ranked_info = give_ans('conference', ['analysis'], None, 5)
 	print(ranked_func)
 	print(ranked_info)

@@ -10,17 +10,17 @@ def data_loader():
 	# print(data['Cites / Doc. (2years)'].head())
 	cat_conference = defaultdict(set)
 	cat_journal = defaultdict(set)
-	journal_info = defaultdict(list)
-	conference_info = defaultdict(list)
+	journal_info = {}
+	conference_info = {}
 
 	for i in tqdm(range(len(data))):
 		if data.iloc[i]['Type'] == 'journal':
 			name = data.iloc[i]['Title']
 			categories = data.iloc[i]['Categories'].split(';')
-			for i, category in enumerate(categories):
+			for j, category in enumerate(categories):
 				category = re.sub(r'\s*\(Q*q*\d\)\s*', '', category)
 				category = category.strip(' ')
-				categories[i] = category
+				categories[j] = category
 				# print(category)
 
 			info = [data.iloc[i]['Rank'], int(data.iloc[i]['Cites / Doc. (2years)'].split(',')[0]), np.random.randint(1,12)]
@@ -28,21 +28,21 @@ def data_loader():
 			for category in categories:
 				cat_journal[category.lower()].add(name)
 
-			journal_info[name.lower()].extend(info)
+			journal_info[name.lower()] = info
 
 		else:
 			name = data.iloc[i]['Title']
 			categories = data.iloc[i]['Categories'].split(';')
-			for i, category in enumerate(categories):
+			for j, category in enumerate(categories):
 				category = re.sub(r'\s*\(Q*q*\d\)\s*', '', category)
 				category = category.strip(' ')
-				categories[i] = category
+				categories[j] = category
 			
 			for category in categories:
 				cat_conference[category.lower()].add(name)
 
-			info = [data.iloc[i]['Rank'], data.iloc[i]['Cites / Doc. (2years)'], np.random.randint(1,12)]
-			conference_info[name.lower()].extend(info)
+			info = [data.iloc[i]['Rank'], int(data.iloc[i]['Cites / Doc. (2years)'].split(',')[0]), np.random.randint(1,12)]
+			conference_info[name.lower()] = info
 			
 
 	with open('cat_conference', 'wb') as file:
