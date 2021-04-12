@@ -54,7 +54,7 @@
       </select>
     </div>
     <div>
-      <button type="button" class="btn btn-primary mr-5" onclick="onsearch()" >Search</button>
+      <button type="button" class="btn btn-primary mr-5" onclick="search()" >Search</button>
     </div>
   </div>
 </div>
@@ -74,7 +74,7 @@
   {
     localStorage.clear()
   }
-  function onsearch()
+  function search()
   {
     var type = document.getElementById("type").selectedOptions[0].value; 
     var cat = document.getElementById("categories").selectedOptions;
