@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This network was created in GeNIe Academic, which can be used for academic teaching and research purposes only -->
+<smile version="1.0" id="Network1" numsamples="10000" discsamples="10000">
+	<nodes>
+		<cpt id="Personnel">
+			<state id="T" />
+			<state id="F" />
+			<probabilities>0.8 0.2</probabilities>
+		</cpt>
+		<cpt id="See_Personnel">
+			<state id="T" />
+			<state id="F" />
+			<parents>Personnel</parents>
+			<probabilities>0.7 0.3 0.1 0.9</probabilities>
+		</cpt>
+		<cpt id="Slow_Traffic">
+			<state id="T" />
+			<state id="F" />
+			<parents>Personnel</parents>
+			<probabilities>0.6 0.4 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Gender">
+			<state id="Male" />
+			<state id="Female" />
+			<probabilities>0.579 0.421</probabilities>
+		</cpt>
+		<cpt id="Age">
+			<state id="Age_16_25" />
+			<state id="Age_26_35" />
+			<state id="Age_36_45" />
+			<state id="Age_46_55" />
+			<state id="Age_56_65" />
+			<state id="Age_66_75" />
+			<probabilities>0.2393350062735257 0.219573400250941 0.2117314930991217 0.1411543287327478 0.1176286072772898 0.07057716436637385</probabilities>
+		</cpt>
+		<cpt id="Speed">
+			<state id="T" />
+			<state id="F" />
+			<parents>Gender Age</parents>
+			<probabilities>0.23933501 0.76066499 0.2195734 0.7804266 0.21173149 0.78826851 0.14115433 0.8588456699999999 0.11762861 0.8823713900000001 0.070577164 0.929422836 0.119667505 0.880332495 0.1097867 0.8902133 0.105865745 0.894134255 0.070577165 0.9294228349999999 0.058814305 0.941185695 0.035288582 0.964711418</probabilities>
+		</cpt>
+		<cpt id="Fine_Chit">
+			<state id="T" />
+			<state id="F" />
+			<parents>Personnel Speed</parents>
+			<probabilities>0.4 0.6 0.2 0.8 0.2 0.8 0.2 0.8</probabilities>
+		</cpt>
+		<cpt id="OnTime">
+			<state id="T" />
+			<state id="F" />
+			<parents>Fine_Chit Speed Slow_Traffic</parents>
+			<probabilities>0.1 0.9 0.1 0.9 0.1 0.9 0.1 0.9 0.7 0.3 0.7 0.3 0.3 0.7 0.5 0.5</probabilities>
+		</cpt>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="GeNIe 3.0.6128.0 ACADEMIC" name="Network1">
+			<node id="See_Personnel">
+				<name>See-Personnel</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>126 252 208 303</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Personnel">
+				<name>Personnel</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>377 64 439 102</position>
+				<barchart active="true" />
+			</node>
+			<node id="Slow_Traffic">
+				<name>Slow Traffic</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>408 254 481 299</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Speed">
+				<name>Speed</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>866 137 914 167</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Fine_Chit">
+				<name>Fine_Chit</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>626 202 674 232</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="OnTime">
+				<name>OnTime</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>585 433 637 465</position>
+				<barchart active="true" />
+			</node>
+			<node id="Gender">
+				<name>Gender</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>983 295 1035 327</position>
+				<barchart active="true" />
+			</node>
+			<node id="Age">
+				<name>Age</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>1104 72 1145 97</position>
+				<barchart active="true" width="128" height="108" />
+			</node>
+		</genie>
+	</extensions>
+</smile>

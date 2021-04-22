@@ -1,0 +1,10 @@
+(a) Yes
+    P(FineChit = T | Slow Traffic = T) = 0.28
+    P(FineChit = T | Slow Traffic = T, SeePersonnel = T) = 0.30
+    P(FineChit = T | Slow Traffic = T, SeePersonnel = F) = 0.26
+
+
+(b) Yes
+    P(FineChit = T | OnTime = T) = 0.07
+    P(FineChit = T | OnTime = T, SeePersonnel = T) = 0.08
+    P(FineChit = T | OnTime = T, SeePersonnel = F) = 0.06
