@@ -4,10 +4,15 @@ Project By:
 - **Mudit Chaturvedi** : ID - 2018A7PS0248H
 - **Kriti Jethlia** : ID - 2018A7PS0223H
 
+
 --------------------------------------------------------------------------------------------------
-**How to run the code**
+## Expert System for Journals
+
+**Executing the code**
+1) Either setup database on Mongodb (requires appropriate changes in code) or use the existing credentials.
+2) Run 
+
+      `python3 server.py`
+      
 --------------------------------------------------------------------------------------------------
-- Part A
-1) cd Q1
-2) python server.py
 
