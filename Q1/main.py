@@ -21,8 +21,11 @@ def give_functions(functions, cat_func, top_k):
 	for j in range(len(functions)):
 		temp = set()
 		for i in range(len(functions)-j):
-			temp = temp.union(functions[i])
-
+			if i==0:
+				temp = temp.union(functions[i])
+			else:
+				temp = temp.intersection(functions[i])
+				
 		potential_func.extend(list(temp)[:])	
 		# print("potential func",potential_func)
 		# print("temp",temp)
